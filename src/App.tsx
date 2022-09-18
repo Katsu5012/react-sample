@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useCallback } from 'react'
+
+import Counter from './components/useState'
+import ReducerCounter from './components/useReducer'
+import UseMemoCounter from './components/memo'
+import UseCallbackCounter from './components/useCallback'
+import UseMemoSample from './components/useMemo'
+import Clock from './components/useEffect'
+import Button from './components/atoms/button'
+
+import './App.css'
 
 function App() {
+  const [count, setCount] = useState(0)
+
+  const handleButtonClick = useCallback(() => {
+    setCount((prevCount) => prevCount + 1)
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Counter initialValue={20} />
+
+      <ReducerCounter initialValue={0} />
+
+      <UseMemoCounter />
+
+      <UseCallbackCounter />
+
+      <UseMemoSample />
+
+      <Clock />
+
+      <p>------------------</p>
+      {count}
+      <Button onClick={handleButtonClick}>hello</Button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
